@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <span>🏦 SecureBank Online</span>
+            <div>
+                {% if session['role'] != 'admin' %}
+                    <a href="/transfer">Transfer Funds</a>
+                {% endif %}
+                
+                {% if session['role'] == 'admin' %}
+                    <a href="/admin/logs">Audit Logs</a>
+                {% endif %}
+                
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="card wide">
+        <h1>Welcome, {{ user }}</h1>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-message success">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div style="text-align: left; margin-top: 20px;">
+            <h3>Account Overview</h3>
+            <p><strong>Account Status:</strong> <span style="color: green;">Active</span></p>
+            <p><strong>Security Level:</strong> High (Session Encrypted)</p>
+            <p><strong>Current Role:</strong> {{ session['role'] }}</p>
+            
+            <div style="margin-top: 30px; display: flex; gap: 10px;">
+                
+                {% if session['role'] != 'admin' %}
+                    <button onclick="window.location.href='/transfer'">Make a Transfer</button>
+                {% endif %}
+
+                {% if session['role'] == 'admin' %}
+                    <button onclick="window.location.href='/admin/logs'" style="background-color: #6c757d;">View Security Logs (Admin)</button>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

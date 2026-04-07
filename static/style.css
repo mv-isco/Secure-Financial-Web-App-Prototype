@@ -1,0 +1,102 @@
+/* static/style.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+/* Navigation Bar */
+nav {
+    width: 100%;
+    background-color: #004085; /* Dark Blue */
+    color: white;
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+nav .container {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+}
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Main Container (Cards) */
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px; /* Standard width for forms */
+    text-align: center;
+    margin-top: 60px; /* Space for navbar */
+}
+
+/* Wider Card for Dashboard/Tables */
+.card.wide {
+    max-width: 800px;
+}
+
+/* Headings */
+h1, h2 { color: #004085; margin-bottom: 20px; }
+h3 { color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+
+/* Forms */
+input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Fix padding issues */
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+button:hover { background-color: #004085; }
+
+/* Messages */
+.flash-message { padding: 10px; margin-bottom: 15px; border-radius: 4px; text-align: left;}
+.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+/* Links */
+a.link { color: #0056b3; text-decoration: none; }
+a.link:hover { text-decoration: underline; }
+
+/* Tables (Logs) */
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; }
+th { background-color: #004085; color: white; }
+tr:hover { background-color: #f1f1f1; }
+.status-fail { color: red; font-weight: bold; }
+.status-success { color: green; font-weight: bold; }

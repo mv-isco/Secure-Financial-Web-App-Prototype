@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transfer Money</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <span>🏦 SecureBank Online</span>
+            <div><a href="/dashboard">Back to Dashboard</a></div>
+        </div>
+    </nav>
+
+    <div class="card">
+        <h2>💸 Transfer Funds</h2>
+        <p>Sender: <strong>{{ session['user'] }}</strong></p>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-message error">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+            <label style="display:block; text-align:left; margin-top:10px;">To (Username):</label>
+            <input type="text" name="recipient" placeholder="Recipient" required>
+            
+            <label style="display:block; text-align:left; margin-top:10px;">Amount ($):</label>
+            <input type="number" name="amount" step="0.01" min="0.01" placeholder="0.00" required>
+            
+            <button type="submit">Confirm Transfer</button>
+        </form>
+    </div>
+</body>
+</html>
