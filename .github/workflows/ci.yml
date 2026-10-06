@@ -1,0 +1,39 @@
+name: SecureVault checks
+on: [push, pull_request]
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build --tag securevault:ci .
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.21.0'
+          cache: npm
+          cache-dependency-path: |
+            backend/package-lock.json
+            frontend/package-lock.json
+      - run: npm ci
+        working-directory: backend
+      - run: npm test
+        working-directory: backend
+      - run: npm audit --omit=dev --audit-level=low
+        working-directory: backend
+      - run: npm ci
+        working-directory: frontend
+      - run: npm run lint
+        working-directory: frontend
+      - run: npm test
+        working-directory: frontend
+      - run: npm run build
+        working-directory: frontend
+      - run: npx playwright-core install --with-deps chromium
+        working-directory: frontend
+      - run: npm run test:browser
+        working-directory: frontend
+      - run: npm audit --omit=dev --audit-level=low
+        working-directory: frontend

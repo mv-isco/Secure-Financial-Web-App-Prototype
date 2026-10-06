@@ -1,0 +1,44 @@
+services:
+  api:
+    build: .
+    restart: unless-stopped
+    env_file: ${SECUREVAULT_ENV_FILE:?Set the absolute path to your private production env file}
+    environment:
+      NODE_ENV: production
+      PORT: "5000"
+      DATABASE_PATH: /var/lib/securevault/vault.sqlite
+      TRUST_PROXY: "1"
+    init: true
+    stop_grace_period: 50s
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    volumes:
+      - vault-data:/var/lib/securevault
+    expose:
+      - "5000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:5000/ready').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  proxy:
+    image: caddy:2.11.7-alpine
+    restart: unless-stopped
+    environment:
+      VAULT_DOMAIN: ${VAULT_DOMAIN:?Set your HTTPS domain}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      api:
+        condition: service_healthy
+volumes:
+  vault-data:
+  caddy-data:
+  caddy-config:

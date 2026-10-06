@@ -1,0 +1,20 @@
+Requires Node.js 24.21 or later (24.21.0 is pinned in .nvmrc and .node-version).
+
+Terminal 1 (project folder):
+npm ci --prefix backend
+npm run dev --prefix backend
+
+Terminal 2:
+npm ci --prefix frontend
+npm run dev --prefix frontend
+
+Open http://localhost:3000 and register.
+Local email verification link:
+npm run mailbox --prefix backend -- your@email.example
+
+After signing in, open Profile in the sidebar:
+- Edit your name, change your password and manage active sessions.
+- Choose an account under Test money, enter an amount and click Add test money.
+- Test funds are artificial and available only in local development.
+
+See README.md for authenticator setup, test funding, backups and deployment.
