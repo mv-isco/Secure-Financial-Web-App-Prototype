@@ -2,6 +2,51 @@
 
 SecureVault is a local account dashboard with email verification, mandatory authenticator verification, revocable sessions and atomic internal transfers. Requires **Node.js 24.21 or later**; `.nvmrc`, `.node-version`, Docker and CI pin **24.21.0**. Production refuses to start on an older runtime.
 
+## Demo screenshots
+
+Captured from the running app using fictional demo accounts and artificial test balances. The screenshots show desktop screens at 1440px, authentication screens at 800px, and the mobile dashboard at 390px.
+
+### Account dashboard
+
+Checking and savings balances, recent activity, and quick access to transfers and history.
+
+![SecureVault dashboard showing fictional checking and savings balances and recent transfers](docs/screenshots/dashboard.png)
+
+### Registration and sign-in
+
+| Sign in | Create account |
+| --- | --- |
+| ![SecureVault email and password sign-in screen](docs/screenshots/login.png) | ![SecureVault account registration form](docs/screenshots/register.png) |
+
+<details>
+<summary>View authenticator verification</summary>
+
+The password step is followed by a required authenticator code. One-time recovery codes are available for a lost authenticator.
+
+<img src="docs/screenshots/authenticator.png" alt="SecureVault authenticator verification screen with an empty code field" width="600">
+
+</details>
+
+### Transfers and transaction history
+
+| Transfer review | Transaction history |
+| --- | --- |
+| ![SecureVault transfer review confirming a fictional recipient and requesting a fresh authenticator code](docs/screenshots/transfer-review.png) | ![SecureVault transaction history with transfers and artificial test funding](docs/screenshots/history.png) |
+
+### Profile and mobile layout
+
+| Profile and security | Mobile dashboard |
+| --- | --- |
+| <img src="docs/screenshots/profile.png" alt="SecureVault profile with personal details, password change, local test funding, security settings and active sessions" width="600"> | <img src="docs/screenshots/dashboard-mobile.png" alt="SecureVault dashboard on a 390-pixel mobile screen" width="260"> |
+
+To regenerate the gallery after a UI change, install both projects' dependencies, then run:
+
+```powershell
+npm run demo:screenshots --prefix frontend
+```
+
+The capture script uses a temporary in-memory database and generates fresh demo credentials. It runs with installed Edge/Chrome, `BROWSER_PATH`, or Playwright's Chromium. Images are saved in [`docs/screenshots`](docs/screenshots). Your local account data is unaffected.
+
 ## Run locally
 
 In two terminals from the project folder:

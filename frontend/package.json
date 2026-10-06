@@ -12,7 +12,8 @@
     "preview": "vite preview",
     "lint": "eslint src",
     "test": "vitest run",
-    "test:browser": "npm run build && node scripts/smoke-browser.cjs && node scripts/profile-browser.cjs"
+    "test:browser": "npm run build && node scripts/smoke-browser.cjs && node scripts/profile-browser.cjs",
+    "demo:screenshots": "npm run build && node scripts/demo-screenshots.cjs"
   },
   "dependencies": {
     "axios": "^1.20.0",
